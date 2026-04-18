@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--Header for each page that includes title and links the CSS file for design.-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Browsers Project | Quiz</title>
+  <link rel="stylesheet" href="styles.css">
+
+<body>
+  <header>
+    <h1 id="site-title">Web Browsers Knowledge Quiz</h1>
+    <p class="tagline">Test your understanding of web browser history, functions, and concepts</p>
+  </header>
+
+  <!--Nav bar list for each page that links every other page to the top nav bar.-->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="history.html">History</a></li>
+      <li><a href="features.html">Functions</a></li>
+      <li><a href="future.html">Future</a></li>
+      <li><a href="concepts.html">Key Concepts</a></li>
+      <li><a class="active" href="quiz.html">Quiz</a></li>
+      <li><a href="references.html">References</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!--Intro card header-->
+    <section class="card">
+      <h2>Self-Assessment Quiz</h2>
+      <p>
+        Answer all five questions below to test your understanding of the material covered on this site.
+        When finished, click <strong>Submit Quiz</strong> to see your score and the correct answers.
+        Use <strong>Reset Quiz</strong> to clear your answers and try again.
+      </p>
+    </section>
+
+    <!--Quiz form-->
+    <form id="quiz-form" novalidate>
+
+      <!--Question 1-->
+      <section class="card quiz-question" id="q1-block">
+        <h3>Question 1 &mdash; Fill in the Blank (1 point)</h3>
+        <p>The World Wide Web was created by __________________ in the early 1990s.</p>
+        <input type="text" id="q1" name="q1" placeholder="Enter the creator's name" autocomplete="off">
+      </section>
+
+      <!--Question 2-->
+      <section class="card quiz-question" id="q2-block">
+        <h3>Question 2 &mdash; Multiple Choice (1 point)</h3>
+        <p>Which browser is credited with popularizing graphical web browsing by introducing image and multimedia support to a wider audience?</p>
+        <label><input type="radio" name="q2" value="a"> Netscape Navigator</label>
+        <label><input type="radio" name="q2" value="b"> Mosaic</label>
+        <label><input type="radio" name="q2" value="c"> Internet Explorer</label>
+        <label><input type="radio" name="q2" value="d"> Google Chrome</label>
+      </section>
+
+      <!--Question 3-->
+      <section class="card quiz-question" id="q3-block">
+        <h3>Question 3 &mdash; Multiple Choice (1 point)</h3>
+        <p>What is the term for the process of turning HTML and CSS code into a visible webpage?</p>
+        <label><input type="radio" name="q3" value="a"> Compiling</label>
+        <label><input type="radio" name="q3" value="b"> Rendering</label>
+        <label><input type="radio" name="q3" value="c"> Parsing</label>
+        <label><input type="radio" name="q3" value="d"> Uploading</label>
+      </section>
+
+      <!--Question 4-->
+      <section class="card quiz-question" id="q4-block">
+        <h3>Question 4 &mdash; Multiple Choice (1 point)</h3>
+        <p>In what year did Google Chrome launch and begin reshaping the browser market?</p>
+        <label><input type="radio" name="q4" value="a"> 1995</label>
+        <label><input type="radio" name="q4" value="b"> 2003</label>
+        <label><input type="radio" name="q4" value="c"> 2008</label>
+        <label><input type="radio" name="q4" value="d"> 2012</label>
+      </section>
+
+      <!--Question 5-->
+      <section class="card quiz-question" id="q5-block">
+        <h3>Question 5 &mdash; Select All That Apply (2 points)</h3>
+        <p>Which of the following are <strong>security features</strong> of modern web browsers? Select all that apply.</p>
+        <label><input type="checkbox" name="q5" value="a"> Warns users about dangerous websites</label>
+        <label><input type="checkbox" name="q5" value="b"> Displays text, images, audio, and video</label>
+        <label><input type="checkbox" name="q5" value="c"> Helps block malicious pop-ups and downloads</label>
+        <label><input type="checkbox" name="q5" value="d"> Uses secure connections for safer browsing</label>
+        <label><input type="checkbox" name="q5" value="e"> Supports synchronization across devices</label>
+      </section>
+
+      <!--Action buttons-->
+      <div style="margin-bottom: 22px;">
+        <button type="button" class="quiz-btn" onclick="gradeQuiz()">Submit Quiz</button>
+        <button type="button" class="quiz-btn quiz-btn-reset" onclick="resetQuiz()">Reset Quiz</button>
+      </div>
+
+    </form>
+
+    <!--Results section that are all hidden until after user answers every question-->
+    <div id="quiz-results">
+
+      <!--Score summary card-->
+      <section class="card highlight">
+        <h2>Your Results</h2>
+        <p class="score-number" id="score-display"></p>
+        <p id="pass-fail-display"></p>
+      </section>
+
+      <div id="question-results"></div>
+
+    </div>
+
+  </main>
+
+  <!--Footer found on every page to include the main link to the KSU web github.-->
+  <footer>
+    <p>This is a class project for IT 3203. Visit the course website: <a href="https://ksuweb.github.io/IT3203/">IT 3203 Class Site</a></p>
+  </footer>
+
+ <!--Beginning of script for question information-->
+  <script>
+    var Q1_ACCEPTED = [
+      "tim berners-lee",
+      "tim berners lee",
+      "berners-lee",
+      "berners lee"
+    ];
+
+    var Q5_CORRECT = ["a", "c", "d"];
+
+    var TOTAL_POSSIBLE = 6;
+    var PASS_THRESHOLD = 0.60;
+
+    /* Correct answers */
+    var CORRECT_TEXT = {
+      q1: "Tim Berners-Lee",
+      q2: "Mosaic",
+      q3: "Rendering",
+      q4: "2008",
+      q5: "Warns users about dangerous websites; Helps block malicious pop-ups and downloads; Uses secure connections for safer browsing"
+    };
+
+    /* Question labels for result cards */
+    var Q_LABELS = {
+      q1: "Question 1 — Fill in the Blank",
+      q2: "Question 2 — Multiple Choice",
+      q3: "Question 3 — Multiple Choice",
+      q4: "Question 4 — Multiple Choice",
+      q5: "Question 5 — Select All That Apply"
+    };
+
+    function gradeQuiz() {
+      var score = 0;
+      var html = "";
+
+      /* Q1: fill in the blank */
+      var q1Input = document.getElementById("q1").value.trim();
+      var q1Correct = Q1_ACCEPTED.indexOf(q1Input.toLowerCase()) !== -1;
+      var q1Pts = q1Correct ? 1 : 0;
+      score += q1Pts;
+      html += buildCard("q1", q1Correct ? "correct" : "incorrect", q1Pts, 1,
+        q1Input.length > 0 ? "You entered: " + q1Input : "You left this blank.");
+
+      /* Q2: single choice */
+      var q2Val = getRadio("q2");
+      var q2Correct = q2Val === "b";
+      var q2Pts = q2Correct ? 1 : 0;
+      score += q2Pts;
+      html += buildCard("q2", q2Correct ? "correct" : "incorrect", q2Pts, 1,
+        q2Val ? "You selected: " + getLabelText("q2", q2Val) : "You did not select an answer.");
+
+      /* Q3: single choice */
+      var q3Val = getRadio("q3");
+      var q3Correct = q3Val === "b";
+      var q3Pts = q3Correct ? 1 : 0;
+      score += q3Pts;
+      html += buildCard("q3", q3Correct ? "correct" : "incorrect", q3Pts, 1,
+        q3Val ? "You selected: " + getLabelText("q3", q3Val) : "You did not select an answer.");
+
+      /* Q4: single choice */
+      var q4Val = getRadio("q4");
+      var q4Correct = q4Val === "c";
+      var q4Pts = q4Correct ? 1 : 0;
+      score += q4Pts;
+      html += buildCard("q4", q4Correct ? "correct" : "incorrect", q4Pts, 1,
+        q4Val ? "You selected: " + getLabelText("q4", q4Val) : "You did not select an answer.");
+
+      /* Q5: multi-select
+         2 pts — all three correct, no wrong selections
+         1 pt  — at least one correct, no wrong selections
+         0 pts — any wrong selection chosen */
+      var q5Checked = getCheckboxes("q5");
+      var q5HasWrong = false;
+      for (var i = 0; i < q5Checked.length; i++) {
+        if (Q5_CORRECT.indexOf(q5Checked[i]) === -1) { q5HasWrong = true; break; }
+      }
+      var q5CorrectCount = 0;
+      for (var j = 0; j < q5Checked.length; j++) {
+        if (Q5_CORRECT.indexOf(q5Checked[j]) !== -1) q5CorrectCount++;
+      }
+      var q5Pts = 0;
+      var q5Status = "incorrect";
+      if (!q5HasWrong && q5CorrectCount === 3) {
+        q5Pts = 2; q5Status = "correct";
+      } else if (!q5HasWrong && q5CorrectCount > 0) {
+        q5Pts = 1; q5Status = "partial";
+      }
+      score += q5Pts;
+      var q5Entered = q5Checked.length > 0
+        ? "You selected: " + q5Checked.map(function(v) { return getLabelText("q5", v); }).join("; ")
+        : "You did not select any options.";
+      html += buildCard("q5", q5Status, q5Pts, 2, q5Entered);
+
+      /* Display overall score and pass/fail */
+      var pct = Math.round((score / TOTAL_POSSIBLE) * 100);
+      document.getElementById("score-display").textContent =
+        "Total Score: " + score + " / " + TOTAL_POSSIBLE + " (" + pct + "%)";
+
+      var pfEl = document.getElementById("pass-fail-display");
+      if (score / TOTAL_POSSIBLE >= PASS_THRESHOLD) {
+        pfEl.textContent = "Result: PASS";
+        pfEl.className = "result-pass";
+      } else {
+        pfEl.textContent = "Result: FAIL";
+        pfEl.className = "result-fail";
+      }
+
+      /* Inject result cards and reveal results block */
+      document.getElementById("question-results").innerHTML = html;
+      var resultsDiv = document.getElementById("quiz-results");
+      resultsDiv.style.display = "block";
+      resultsDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    /* Builds one result card using the same .card class as the rest of the site */
+    function buildCard(qKey, status, earned, max, userAnswer) {
+      var cls, label;
+      if (status === "correct")       { cls = "answer-correct";   label = "Correct"; }
+      else if (status === "partial")  { cls = "answer-partial";   label = "Partially Correct"; }
+      else                            { cls = "answer-incorrect"; label = "Incorrect"; }
+
+      return '<section class="card">' +
+        '<strong>' + Q_LABELS[qKey] + '</strong>' +
+        '<p class="' + cls + '">' + label + '</p>' +
+        '<p class="result-note">' + userAnswer + '</p>' +
+        '<p class="result-note">Correct answer: <strong>' + CORRECT_TEXT[qKey] + '</strong></p>' +
+        '<p class="result-points">Points earned: ' + earned + ' / ' + max + '</p>' +
+        '</section>';
+    }
+
+    /* Returns the value of the checked radio for a given name, or null */
+    function getRadio(name) {
+      var el = document.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : null;
+    }
+
+    /* Returns array of checked checkbox values for a given name */
+    function getCheckboxes(name) {
+      var els = document.querySelectorAll('input[name="' + name + '"]:checked');
+      var vals = [];
+      for (var i = 0; i < els.length; i++) vals.push(els[i].value);
+      return vals;
+    }
+
+    /* Returns the visible label text for an input given its name and value */
+    function getLabelText(name, value) {
+      var el = document.querySelector('input[name="' + name + '"][value="' + value + '"]');
+      return (el && el.parentElement) ? el.parentElement.textContent.trim() : value;
+    }
+
+    /* Clears all inputs and hides the results section */
+    function resetQuiz() {
+      document.getElementById("q1").value = "";
+
+      var radios = document.querySelectorAll('input[type="radio"]');
+      for (var i = 0; i < radios.length; i++) radios[i].checked = false;
+
+      var boxes = document.querySelectorAll('input[type="checkbox"]');
+      for (var j = 0; j < boxes.length; j++) boxes[j].checked = false;
+
+      var resultsDiv = document.getElementById("quiz-results");
+      resultsDiv.style.display = "none";
+      document.getElementById("question-results").innerHTML = "";
+      document.getElementById("score-display").textContent = "";
+      var pfEl = document.getElementById("pass-fail-display");
+      pfEl.textContent = "";
+      pfEl.className = "";
+
+      document.getElementById("quiz-form").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  </script>
+
+</body>
+</html>
