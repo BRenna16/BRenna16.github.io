@@ -186,3 +186,117 @@ footer a {
   color: #cfe2ff;
 }
 
+/* Below is all of my CSS required for my quiz section */
+.quiz-question label {
+      display: block;
+      margin-bottom: 6px;
+      padding: 6px 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    .quiz-question label:hover {
+      background-color: #eef3f9;
+      border-color: var(--border);
+    }
+
+    /* Fill in the blank questions */
+    .quiz-question input[type="text"] {
+      width: 100%;
+      max-width: 380px;
+      padding: 7px 10px;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      border: 1px solid var(--border);
+      background-color: var(--surface);
+      color: var(--text);
+      margin-top: 6px;
+    }
+
+    .quiz-question input[type="text"]:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 1px;
+    }
+
+    /* Submit and reset buttons for quiz */
+    .quiz-btn {
+      display: inline-block;
+      padding: 10px 26px;
+      font-size: 1rem;
+      font-family: Arial, Helvetica, sans-serif;
+      cursor: pointer;
+      border: none;
+      color: #ffffff;
+      background-color: var(--primary);
+      margin-right: 10px;
+      margin-top: 4px;
+    }
+
+    .quiz-btn:hover {
+      background-color: #163c6e;
+    }
+
+    .quiz-btn-reset {
+      background-color: #2d2d2d;
+    }
+
+    .quiz-btn-reset:hover {
+      background-color: #111111;
+    }
+
+    /* Results section for quiz */
+    #quiz-results {
+      display: none;
+      margin-top: 10px;
+    }
+
+    /* Correct/Incorrect options */
+    .answer-correct {
+      color: #1a6e2e;
+      font-weight: bold;
+      margin: 6px 0 4px;
+    }
+
+    .answer-incorrect {
+      color: #a01b1b;
+      font-weight: bold;
+      margin: 6px 0 4px;
+    }
+
+    .answer-partial {
+      color: #7a5200;
+      font-weight: bold;
+      margin: 6px 0 4px;
+    }
+
+    /* Answer details for "cards" */
+    .result-note {
+      margin: 3px 0;
+      font-size: 0.95rem;
+    }
+
+    .result-points {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Score number for quiz */
+    .score-number {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 6px 0 4px;
+    }
+
+    .result-pass {
+      color: #1a6e2e;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .result-fail {
+      color: #a01b1b;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
