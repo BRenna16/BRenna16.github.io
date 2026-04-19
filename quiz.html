@@ -247,13 +247,13 @@
         '</section>';
     }
 
-    /* QUESTION 1- Returns the value of the checked radio for a given name */
+    /*Returns the value of the checked radio for a given name */
     function getRadio(name) {
       var el = document.querySelector('input[name="' + name + '"]:checked');
       return el ? el.value : null;
     }
 
-    /* QUESTION 5- Returns all selected boxes to check check if they're correct */
+    /* Returns all selected boxes to check check if they're correct */
     function getCheckboxes(name) {
       var els = document.querySelectorAll('input[name="' + name + '"]:checked');
       var vals = [];
