@@ -185,6 +185,21 @@ footer {
 footer a {
   color: #cfe2ff;
 }
+/*Image details for about page*/
+.about-img {
+  width: 200px;
+  border-radius: 10px;
+  display: block;
+  margin-bottom: 15px;
+}
+.home-img {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: 15px auto;
+  border-radius: 10px;
+}
+
 
 /* Below is all of my CSS required for my quiz section */
 .quiz-question label {
